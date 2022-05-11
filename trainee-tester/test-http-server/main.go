@@ -1,13 +1,16 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 )
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello")
+	query := r.URL.Query()
+	name := query.Get("name") //name="NAME"
+	w.WriteHeader(200)
+	w.Write([]byte(name))
+
 }
 
 func main() {
