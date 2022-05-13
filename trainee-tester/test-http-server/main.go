@@ -1,9 +1,22 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 )
+
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+
+	fmt.Fprintf(w, "Hello")
+
+}
+
+func pingHandler(w http.ResponseWriter, r *http.Request) {
+
+	fmt.Fprintf(w, "PING")
+
+}
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
@@ -14,6 +27,8 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/ping", pingHandler)
 	http.HandleFunc("/hello", helloHandler)
 	log.Println("Listening...")
 	http.ListenAndServe(":8080", nil)
