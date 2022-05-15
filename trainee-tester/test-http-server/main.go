@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -26,10 +27,28 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func jsonHandler(w http.ResponseWriter, r *http.Request) {
+	type User struct {
+		Answer string `json:"answer"`
+	}
+
+	p := User{
+		Answer: "NAME",
+	}
+
+	// Set response header
+	w.Header().Set("Content-Type", "application/json")
+	err := json.NewEncoder(w).Encode(&p)
+	if err != nil {
+		//... handle error
+	}
+}
+
 func main() {
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/ping", pingHandler)
 	http.HandleFunc("/hello", helloHandler)
+	http.HandleFunc("/json", jsonHandler)
 	log.Println("Listening...")
 	http.ListenAndServe(":8080", nil)
 }
