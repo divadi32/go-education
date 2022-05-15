@@ -110,3 +110,37 @@ func BenchmarkHelloHandler(b *testing.B) {
 		}
 	}
 }
+
+func TestJsonHandler(t *testing.T) {
+	wr := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodGet, "/json", nil)
+
+	jsonHandler(wr, req)
+	if wr.Code != http.StatusOK {
+		t.Errorf("got HTTP status code %d, expected 200", wr.Code)
+	}
+
+	if !strings.Contains(wr.Body.String(), "NAME") {
+		t.Errorf(
+			`response body "%s" does not contain "NAME"`,
+			wr.Body.String(),
+		)
+	}
+}
+
+func BenchmarkJsonHandler(b *testing.B) {
+	wr := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodGet, "/json", nil)
+
+	jsonHandler(wr, req)
+	if wr.Code != http.StatusOK {
+		b.Errorf("got HTTP status code %d, expected 200", wr.Code)
+	}
+
+	if !strings.Contains(wr.Body.String(), "NAME") {
+		b.Errorf(
+			`response body "%s" does not contain "NAME"`,
+			wr.Body.String(),
+		)
+	}
+}
