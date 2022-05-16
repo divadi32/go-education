@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 )
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
@@ -44,11 +45,30 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func timeoutHandler(w http.ResponseWriter, r *http.Request) {
+	time.Sleep(200 * time.Millisecond)
+	type User struct {
+		Answer string `json:"answer"`
+	}
+
+	p1 := User{
+		Answer: "NAME_timeout",
+	}
+
+	// Set response header
+	w.Header().Set("Content-Type", "application/json")
+	err := json.NewEncoder(w).Encode(&p1)
+	if err != nil {
+		//... handle error
+	}
+}
+
 func main() {
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/ping", pingHandler)
 	http.HandleFunc("/hello", helloHandler)
 	http.HandleFunc("/json", jsonHandler)
+	http.HandleFunc("/timeout", timeoutHandler)
 	log.Println("Listening...")
 	http.ListenAndServe(":8080", nil)
 }
