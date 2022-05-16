@@ -46,6 +46,8 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func timeoutHandler(w http.ResponseWriter, r *http.Request) {
+	// start time duration
+	t0 := time.Now()
 	time.Sleep(200 * time.Millisecond)
 	type User struct {
 		Answer string `json:"answer"`
@@ -61,6 +63,11 @@ func timeoutHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		//... handle error
 	}
+	// finish time duration
+	t1 := time.Now()
+	// Get duration.
+	d := t1.Sub(t0)
+	fmt.Println("Duration", d)
 }
 
 func main() {
