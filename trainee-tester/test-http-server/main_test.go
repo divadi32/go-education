@@ -144,3 +144,37 @@ func BenchmarkJsonHandler(b *testing.B) {
 		)
 	}
 }
+
+func TestTimeoutHandler(t *testing.T) {
+	wr := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodGet, "/timeout", nil)
+
+	timeoutHandler(wr, req)
+	if wr.Code != http.StatusOK {
+		t.Errorf("got HTTP status code %d, expected 200", wr.Code)
+	}
+
+	if !strings.Contains(wr.Body.String(), "NAME_timeout") {
+		t.Errorf(
+			`response body "%s" does not contain "NAME_timeout"`,
+			wr.Body.String(),
+		)
+	}
+}
+
+func BenchmarkTimeoutHandler(b *testing.B) {
+	wr := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodGet, "/timeout", nil)
+
+	timeoutHandler(wr, req)
+	if wr.Code != http.StatusOK {
+		b.Errorf("got HTTP status code %d, expected 200", wr.Code)
+	}
+
+	if !strings.Contains(wr.Body.String(), "NAME_timeout") {
+		b.Errorf(
+			`response body "%s" does not contain "NAME_timeout"`,
+			wr.Body.String(),
+		)
+	}
+}
