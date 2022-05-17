@@ -34,7 +34,9 @@ func indexHandler(w http.ResponseWriter, req *http.Request) {
 
 func pingHandler(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Fprintf(w, "PING")
+	sendJSON(w, map[string]string{"answer": "pong"})
+
+	//fmt.Fprintf(w, "PING")
 
 }
 
@@ -86,6 +88,16 @@ func timeoutHandler(w http.ResponseWriter, r *http.Request) {
 	// Get duration.
 	d := t1.Sub(t0)
 	fmt.Println("Duration", d)
+}
+
+func sendJSON(w http.ResponseWriter, data interface{}) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	err := json.NewEncoder(w).Encode(&data)
+	if err != nil {
+		log.Println("ERROR:", err)
+	}
+	return err
 }
 
 func main() {
