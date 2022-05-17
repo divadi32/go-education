@@ -3,14 +3,32 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"time"
 )
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
+func indexHandler(w http.ResponseWriter, req *http.Request) {
 
-	fmt.Fprintf(w, "index.html")
+	w.Header().Set(
+		"Content-Type",
+		"text/html",
+	)
+	io.WriteString(
+		w,
+		`<doctype html>
+		<html>
+		<head>
+		<title>Hello</title>
+		</head>
+		<body>
+		<H1>
+		Hello!!!
+		</H1>
+		</body>
+		</html>`,
+	)
 
 }
 
