@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -46,28 +45,10 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func timeoutHandler(w http.ResponseWriter, r *http.Request) {
-	// start time duration
-	t0 := time.Now()
+
 	time.Sleep(200 * time.Millisecond)
-	type User struct {
-		Answer string `json:"answer"`
-	}
+	sendJSON(w, map[string]string{"answer": "pong"})
 
-	p1 := User{
-		Answer: "NAME_timeout",
-	}
-
-	// Set response header
-	w.Header().Set("Content-Type", "application/json")
-	err := json.NewEncoder(w).Encode(&p1)
-	if err != nil {
-		//... handle error
-	}
-	// finish time duration
-	t1 := time.Now()
-	// Get duration.
-	d := t1.Sub(t0)
-	fmt.Println("Duration", d)
 }
 
 // Added func sendJSON
