@@ -41,10 +41,7 @@ func pingHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	query := r.URL.Query()
-	name := query.Get("name") //name="NAME"
-	w.WriteHeader(200)
-	w.Write([]byte(name))
+	sendJSON(w, map[string]string{"answer": "NAME"})
 
 }
 
