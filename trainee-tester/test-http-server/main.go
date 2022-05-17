@@ -10,7 +10,7 @@ import (
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Fprintf(w, "hello.html")
+	fmt.Fprintf(w, "index.html")
 
 }
 
