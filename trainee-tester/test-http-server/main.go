@@ -90,6 +90,7 @@ func timeoutHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Duration", d)
 }
 
+// Added func sendJSON
 func sendJSON(w http.ResponseWriter, data interface{}) error {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
