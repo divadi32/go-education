@@ -10,7 +10,7 @@ import (
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Fprintf(w, "Hello")
+	fmt.Fprintf(w, "hello.html")
 
 }
 
@@ -71,11 +71,12 @@ func timeoutHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/index", indexHandler)
 	http.HandleFunc("/ping", pingHandler)
 	http.HandleFunc("/hello", helloHandler)
 	http.HandleFunc("/json", jsonHandler)
 	http.HandleFunc("/timeout", timeoutHandler)
+	http.Handle("/", http.FileServer(http.Dir("./public")))
 	log.Println("Listening...")
 	http.ListenAndServe(":8080", nil)
 }
