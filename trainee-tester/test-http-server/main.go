@@ -48,23 +48,6 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func jsonHandler(w http.ResponseWriter, r *http.Request) {
-	type User struct {
-		Answer string `json:"answer"`
-	}
-
-	p := User{
-		Answer: "NAME",
-	}
-
-	// Set response header
-	w.Header().Set("Content-Type", "application/json")
-	err := json.NewEncoder(w).Encode(&p)
-	if err != nil {
-		//... handle error
-	}
-}
-
 func timeoutHandler(w http.ResponseWriter, r *http.Request) {
 	// start time duration
 	t0 := time.Now()
@@ -105,7 +88,6 @@ func main() {
 	http.HandleFunc("/index", indexHandler)
 	http.HandleFunc("/ping", pingHandler)
 	http.HandleFunc("/hello", helloHandler)
-	http.HandleFunc("/json", jsonHandler)
 	http.HandleFunc("/timeout", timeoutHandler)
 	http.Handle("/", http.FileServer(http.Dir("./public")))
 	log.Println("Listening...")
