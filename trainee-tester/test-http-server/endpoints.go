@@ -10,54 +10,48 @@ import (
 
 // setEndoints (setupRoutes)
 func setEndpoints() {
-	http.HandleFunc("/index", indexHandler)
+	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/ping", pingHandler)
 	http.HandleFunc("/hello", helloHandler)
 	http.HandleFunc("/timeout", timeoutHandler)
-	http.Handle("/", http.FileServer(http.Dir("./public")))
 }
 
 func indexHandler(w http.ResponseWriter, req *http.Request) {
-
 	w.Header().Set(
 		"Content-Type",
 		"text/html",
 	)
 	io.WriteString(
 		w,
-		`<doctype html>
+		`<!doctype html>
 		<html>
 		<head>
 		<title>Hello</title>
 		</head>
 		<body>
-		<H1>
+		<h1>
 		Hello!!!
-		</H1>
+		</h1>
 		</body>
 		</html>`,
 	)
-
 }
 
 func pingHandler(w http.ResponseWriter, r *http.Request) {
-
 	sendJSON(w, map[string]string{"answer": "pong"})
-
-	//fmt.Fprintf(w, "PING")
-
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	sendJSON(w, map[string]string{"answer": "NAME"})
-
+	name := r.URL.Query().Get("name")
+	if name == "" {
+		sendJSON(w, map[string]string{"answer": "Param name was not found"})
+	}
+	sendJSON(w, map[string]string{"answer": name})
 }
 
 func timeoutHandler(w http.ResponseWriter, r *http.Request) {
-
 	time.Sleep(200 * time.Millisecond)
 	sendJSON(w, map[string]string{"answer": "pong"})
-
 }
 
 // Added func sendJSON
