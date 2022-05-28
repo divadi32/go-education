@@ -14,6 +14,8 @@ func setEndpoints() {
 	http.HandleFunc("/ping", pingHandler)
 	http.HandleFunc("/hello", helloHandler)
 	http.HandleFunc("/timeout", timeoutHandler)
+	http.HandleFunc("/cdbsource", cdbSourceHeandler)
+
 }
 
 func indexHandler(w http.ResponseWriter, req *http.Request) {
