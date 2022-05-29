@@ -1,2 +1,4 @@
 github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
 github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
+github.com/jbarham/cdb v0.0.0-20200301055225-9d6f6caadef0 h1:UfCOnKxwt2dxueylTrrjjyMsaXPHTSJJygePRYaRntE=
+github.com/jbarham/cdb v0.0.0-20200301055225-9d6f6caadef0/go.mod h1:ColEidrii1lqlFhoEckJfZsa0mWxC0I2+f7G/5hZWsw=

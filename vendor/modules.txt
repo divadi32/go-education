@@ -1,3 +1,6 @@
 # github.com/gorilla/mux v1.8.0
 ## explicit; go 1.12
 github.com/gorilla/mux
+# github.com/jbarham/cdb v0.0.0-20200301055225-9d6f6caadef0
+## explicit; go 1.14
+github.com/jbarham/cdb
