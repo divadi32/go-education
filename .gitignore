@@ -13,3 +13,6 @@
 
 # Dependency directories (remove the comment below to include it)
 vendor/
+
+# Ignore all binaries
+trainee-tester/test-http-server/test-http-server
